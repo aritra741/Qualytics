@@ -12,9 +12,7 @@
   "engines": {
     "vscode": "^1.52.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Programming Languages", "Linters", "Visualization"],
   "activationEvents": [
     "onCommand:qualytics.showMetrics"
   ],
@@ -27,6 +25,7 @@
       }
     ]
   },
+  "icon": "images/qualytics.png",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
