@@ -1,0 +1,44 @@
+body {
+  font-family: var(--vscode-font-family);
+  color: var(--vscode-editor-foreground);
+  background-color: var(--vscode-editor-background);
+  padding: 10px;
+}
+
+#charts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#charts canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid var(--vscode-editor-foreground);
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--vscode-editor-selectionBackground);
+}
+
+h1 {
+  color: var(--vscode-editor-foreground);
+  border-bottom: 1px solid var(--vscode-editor-foreground);
+  padding-bottom: 10px;
+}
+
+#metrics-summary {
+  margin-bottom: 20px;
+}
