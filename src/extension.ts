@@ -1,11 +1,11 @@
-import * as vscode from "vscode";
-import * as fs from "fs";
-import * as path from "path";
 import {
+  AST_NODE_TYPES,
   parse,
   TSESTree,
-  AST_NODE_TYPES,
 } from "@typescript-eslint/typescript-estree";
+import * as fs from "fs";
+import * as path from "path";
+import * as vscode from "vscode";
 
 interface CodeMetrics {
   linesOfCode: number;
@@ -93,8 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             totalFiles = allFiles.length;
 
-            // Process files in batches to avoid overwhelming the system
-            const batchSize = 10; // Adjust as needed
+            const batchSize = 10;
             for (let i = 0; i < totalFiles; i += batchSize) {
               const batch = allFiles.slice(i, i + batchSize);
               await Promise.all(
@@ -140,11 +139,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(outputChannel);
 }
 
-/**
- * Recursively retrieves all TypeScript files in the given directory.
- * @param dir The directory to search.
- * @returns A promise that resolves to an array of file paths.
- */
 async function getTypeScriptFiles(
   dir: string,
   baseDir: string
@@ -178,12 +172,6 @@ async function getTypeScriptFiles(
   return results;
 }
 
-/**
- * Calculates various code metrics for the given code.
- * @param code The code content.
- * @param filePath The path to the file (for error messages).
- * @returns An object containing code metrics.
- */
 function calculateMetrics(code: string, filePath: string): CodeMetrics {
   let ast: TSESTree.Program;
 
@@ -200,7 +188,7 @@ function calculateMetrics(code: string, filePath: string): CodeMetrics {
     });
   } catch (error: any) {
     console.error(`Failed to parse ${filePath}: ${error.message}`);
-    // Return default values if parsing fails
+
     return {
       linesOfCode: 0,
       cyclomaticComplexity: 0,
@@ -227,7 +215,6 @@ function calculateMetrics(code: string, filePath: string): CodeMetrics {
       ? cyclomaticComplexity / functionMetrics.functionCount
       : 0;
 
-  // Ensure no NaN or Infinity values are returned
   return {
     linesOfCode: isFinite(linesOfCode) ? linesOfCode : 0,
     cyclomaticComplexity: isFinite(cyclomaticComplexity)
@@ -251,11 +238,6 @@ function calculateMetrics(code: string, filePath: string): CodeMetrics {
   };
 }
 
-/**
- * Counts the logical lines of code in the AST by counting executable statements.
- * @param ast The abstract syntax tree of the code.
- * @returns The number of logical lines of code.
- */
 function countLogicalLinesOfCode(ast: TSESTree.Program): number {
   let loc = 0;
   traverseAST(ast, (node) => {
@@ -266,11 +248,6 @@ function countLogicalLinesOfCode(ast: TSESTree.Program): number {
   return loc;
 }
 
-/**
- * Determines if a node is an executable statement.
- * @param node The AST node.
- * @returns True if the node is executable; false otherwise.
- */
 function isExecutableNode(node: TSESTree.Node): boolean {
   return [
     AST_NODE_TYPES.ExpressionStatement,
@@ -328,14 +305,9 @@ function calculateCyclomaticComplexity(ast: TSESTree.Program): number {
         break;
     }
   });
-  return complexity + 1; // Adding 1 for the default path
+  return complexity + 1;
 }
 
-/**
- * Calculates Halstead metrics for the given AST.
- * @param ast The abstract syntax tree of the code.
- * @returns An object containing the Halstead volume.
- */
 function calculateHalsteadMetrics(ast: TSESTree.Program): HalsteadMetrics {
   const operators = new Set<string>();
   const operands = new Set<string>();
@@ -404,13 +376,6 @@ function calculateHalsteadMetrics(ast: TSESTree.Program): HalsteadMetrics {
   return { volume };
 }
 
-/**
- * Calculates the maintainability index based on volume, complexity, and lines of code.
- * @param volume The Halstead volume.
- * @param complexity The cyclomatic complexity.
- * @param linesOfCode The number of logical lines of code.
- * @returns The maintainability index.
- */
 function calculateMaintainabilityIndex(
   volume: number,
   complexity: number,
@@ -423,11 +388,6 @@ function calculateMaintainabilityIndex(
   return Math.max(0, (mi * 100) / 171);
 }
 
-/**
- * Analyzes the class structure in the AST to determine class count and inheritance depth.
- * @param ast The abstract syntax tree of the code.
- * @returns An object containing class count and maximum inheritance depth.
- */
 function analyzeClassStructure(ast: TSESTree.Program): {
   classCount: number;
   maxInheritanceDepth: number;
@@ -456,11 +416,6 @@ function analyzeClassStructure(ast: TSESTree.Program): {
   return { classCount, maxInheritanceDepth };
 }
 
-/**
- * Analyzes the function structure in the AST to determine function count.
- * @param ast The abstract syntax tree of the code.
- * @returns An object containing the function count.
- */
 function analyzeFunctionStructure(ast: TSESTree.Program): {
   functionCount: number;
 } {
@@ -480,11 +435,6 @@ function analyzeFunctionStructure(ast: TSESTree.Program): {
   return { functionCount };
 }
 
-/**
- * Displays the code metrics visualization in a webview.
- * @param metrics The code metrics to visualize.
- * @param extensionUri The URI of the extension.
- */
 function showMetricsVisualization(
   metrics: FileMetrics,
   extensionUri: vscode.Uri
@@ -505,13 +455,6 @@ function showMetricsVisualization(
   panel.webview.html = getWebviewContent(metrics, panel.webview, extensionUri);
 }
 
-/**
- * Generates the HTML content for the webview.
- * @param metrics The code metrics to include in the webview.
- * @param webview The webview instance.
- * @param extensionUri The URI of the extension.
- * @returns The HTML content as a string.
- */
 function getWebviewContent(
   metrics: FileMetrics,
   webview: vscode.Webview,
@@ -565,10 +508,6 @@ function getWebviewContent(
     </html>`;
 }
 
-/**
- * Generates a nonce for Content Security Policy.
- * @returns A random string.
- */
 function getNonce() {
   let text = "";
   const possible =
@@ -577,11 +516,4 @@ function getNonce() {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-}
-
-/**
- * Deactivates the extension.
- */
-export function deactivate() {
-  // Clean up resources if needed
 }
