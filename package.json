@@ -2,7 +2,7 @@
   "name": "qualytics",
   "displayName": "Qualytics",
   "description": "A Code Metric Visualization extension for VSCode.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "aritra741",
   "repository": {
     "type": "git",
