@@ -41,7 +41,7 @@ A composite metric that considers volume, complexity, and lines of code. Scores 
 
 ### Lines of Code
 
-A simple count of the number of lines in your file. While not a direct indicator of quality, it can help identify files that might be too large and in need of refactoring.
+Counts the number of executable lines in your file, excluding blank lines, comments, and other non-executable statements. This metric provides a clearer picture of your code's actual size and can help identify files that might be too large and in need of refactoring. Remember, while a lower count often indicates more manageable code, it's not always a direct indicator of quality.
 
 ## Contributing
 
