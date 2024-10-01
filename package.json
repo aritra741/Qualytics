@@ -2,7 +2,7 @@
   "name": "qualytics",
   "displayName": "Qualytics",
   "description": "A Code Metric Visualization extension for VSCode.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "aritra741",
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
       }
     ]
   },
-  "icon": "images/qualytics.png",
+  "icon": "images/icon.png",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
