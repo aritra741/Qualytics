@@ -1,0 +1,29 @@
+# Source files
+**/*.ts
+
+# Config files
+tsconfig.json
+.eslintrc.json
+.gitignore
+.vscodeignore
+
+# Dev folders
+.vscode/**
+.github/**
+src/**
+
+# Node modules
+node_modules/**
+
+# Test files
+test/**
+
+# Other files
+.yarnrc
+vsc-extension-quickstart.md
+**/jsconfig.json
+**/*.map
+**/.eslintrc.json
+
+# Include specific files
+!src/**/*.d.ts
