@@ -1,4 +1,4 @@
-import { TSESTree, AST_NODE_TYPES } from "@typescript-eslint/typescript-estree";
+import { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/typescript-estree";
 import { ASTNode } from "./types";
 
 export function traverseAST(

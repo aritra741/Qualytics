@@ -1,9 +1,9 @@
 import {
+  AST_NODE_TYPES,
   TSESTree,
   parse,
-  AST_NODE_TYPES,
 } from "@typescript-eslint/typescript-estree";
-import { traverseAST, isExecutableNode } from "./ast-utils";
+import { isExecutableNode, traverseAST } from "./ast-utils";
 import { CodeMetrics, HalsteadMetrics } from "./types";
 
 export function calculateMetrics(code: string, filePath: string): CodeMetrics {
@@ -117,7 +117,7 @@ export function calculateCyclomaticComplexity(ast: TSESTree.Program): number {
         break;
     }
   });
-  return complexity + 1; // Adding 1 for the default path
+  return complexity + 1;
 }
 
 export function calculateHalsteadMetrics(
