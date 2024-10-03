@@ -1,6 +1,6 @@
 # Qualytics
 
-Qualytics is a powerful VS Code extension that provides code quality metric visualization for TypeScript projects. It helps developers gain insights into their codebase's complexity, maintainability, and overall health.
+Qualytics is a powerful VS Code extension that provides code quality metric visualization for TypeScript projects. It helps developers gain insights into their codebase's complexity, maintainability, and overall health. To get in-depth understanding of how it works, click [here](https://www.aritra.site/blog/qualytics).
 
 ## Features
 
